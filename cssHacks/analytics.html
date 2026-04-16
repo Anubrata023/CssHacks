@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FAXX Analytics Dashboard - Complaint statistics and insights.">
+  <title>Analytics - FAXX</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300f5d4'/%3E%3Cstop offset='100%25' style='stop-color:%237b61ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='18' width='100' height='100' fill='%23050508'/%3E%3Ctext x='50' y='70' font-size='56' font-weight='900' font-family='Arial' fill='url(%23g)' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/neumorphism.css">
+  <link rel="stylesheet" href="css/analytics.css">
+</head>
+<body class="analytics-page">
+  <div class="side-panel-overlay"></div>
+  <nav class="side-panel" id="side-panel">
+    <div class="side-panel-header">
+      <div class="side-panel-logo">FAXX</div>
+      <div class="side-panel-tagline">Unified Complaint Portal</div>
+    </div>
+    <div class="side-panel-nav">
+      <a href="index.html" class="side-panel-link"><span class="link-icon">🏠</span><span>Home</span></a>
+      <a href="index.html#complaints" class="side-panel-link"><span class="link-icon">📋</span><span>Complaints</span></a>
+      <a href="analytics.html" class="side-panel-link active"><span class="link-icon">📊</span><span>Analytics</span></a>
+      <a href="profile.html" class="side-panel-link"><span class="link-icon">👤</span><span>My Profile</span></a>
+      <div class="side-panel-divider"></div>
+      <a href="login-student.html" class="side-panel-link login-nav-link"><span class="link-icon">🎓</span><span>Student Login</span></a>
+      <a href="login-admin.html" class="side-panel-link login-nav-link"><span class="link-icon">🛡️</span><span>Admin Login</span></a>
+      <a href="#" class="side-panel-link logout-link" style="display:none;"><span class="link-icon">🚪</span><span>Logout</span></a>
+    </div>
+    <div class="side-panel-divider"></div>
+    <div class="theme-toggle-wrapper">
+      <span class="theme-toggle-label">Dark Mode</span>
+      <div class="theme-toggle dark" id="theme-toggle"></div>
+    </div>
+  </nav>
+
+  <header class="navbar scrolled" id="navbar">
+    <div class="navbar-left">
+      <button class="hamburger" id="hamburger-btn" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <a href="index.html" class="navbar-brand">FAXX</a>
+    </div>
+    <div class="navbar-right">
+      <a href="index.html#complaints" class="navbar-link">Complaints</a>
+      <a href="analytics.html" class="navbar-link" style="color: var(--accent);">Analytics</a>
+      <a href="profile.html" class="navbar-link navbar-user-link">Profile</a>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="analytics-header reveal">
+        <span class="section-label">📊 Dashboard</span>
+        <h1>Analytics <span class="accent-text">Dashboard</span></h1>
+        <p>Interactive overview of complaints across departments, hostels, and categories.</p>
+      </div>
+
+      <div class="analytics-stats stagger-children">
+        <div class="analytics-stat-card glass-card total">
+          <div class="analytics-stat-icon">📊</div>
+          <div class="analytics-stat-number" id="stat-total">0</div>
+          <div class="analytics-stat-label">Total Complaints</div>
+          <div class="analytics-stat-trend up">↑ 12% this month</div>
+        </div>
+        <div class="analytics-stat-card glass-card resolved">
+          <div class="analytics-stat-icon">✅</div>
+          <div class="analytics-stat-number" id="stat-resolved">0</div>
+          <div class="analytics-stat-label">Resolved</div>
+          <div class="analytics-stat-trend up">↑ 8% improvement</div>
+        </div>
+        <div class="analytics-stat-card glass-card pending">
+          <div class="analytics-stat-icon">⏳</div>
+          <div class="analytics-stat-number" id="stat-pending">0</div>
+          <div class="analytics-stat-label">Pending</div>
+          <div class="analytics-stat-trend down">↓ 5% from last month</div>
+        </div>
+        <div class="analytics-stat-card glass-card critical">
+          <div class="analytics-stat-icon">🚨</div>
+          <div class="analytics-stat-number" id="stat-critical">0</div>
+          <div class="analytics-stat-label">Critical</div>
+          <div class="analytics-stat-trend down">↓ 3% decrease</div>
+        </div>
+      </div>
+
+      <div class="analytics-charts-grid">
+        <div class="chart-card glass-card reveal">
+          <div class="chart-header"><h4 class="chart-title">📊 By Category</h4></div>
+          <div class="bar-chart" id="category-bar-chart"></div>
+        </div>
+        <div class="chart-card glass-card reveal">
+          <div class="chart-header"><h4 class="chart-title">🎯 Status Overview</h4></div>
+          <div class="donut-chart-wrapper">
+            <div class="donut-chart" id="status-donut">
+              <div class="donut-center">
+                <div class="donut-center-number">0</div>
+                <div class="donut-center-label">Total</div>
+              </div>
+            </div>
+            <div class="donut-legend" id="donut-legend"></div>
+          </div>
+        </div>
+        <div class="chart-card glass-card full-width reveal">
+          <div class="chart-header">
+            <h4 class="chart-title">📈 Monthly Trend</h4>
+            <div class="chart-filter">
+              <button class="chart-filter-btn active">All</button>
+              <button class="chart-filter-btn">Resolved</button>
+              <button class="chart-filter-btn">Pending</button>
+            </div>
+          </div>
+          <div class="bar-chart" id="monthly-trend-chart" style="height: 220px;"></div>
+        </div>
+        <div class="chart-card glass-card reveal">
+          <div class="chart-header"><h4 class="chart-title">🏠 By Hostel</h4></div>
+          <div class="bar-chart" id="hostel-bar-chart"></div>
+        </div>
+        <div class="chart-card glass-card reveal">
+          <div class="chart-header"><h4 class="chart-title">🕐 Recent Complaints</h4></div>
+          <div class="recent-complaints-list" id="recent-complaints-list"></div>
+        </div>
+        <div class="chart-card glass-card full-width reveal">
+          <div class="chart-header"><h4 class="chart-title">🏢 Department Breakdown</h4></div>
+          <div class="dept-table-wrapper">
+            <table class="dept-table">
+              <thead><tr><th>#</th><th>Department</th><th>Total</th><th>Resolved</th><th>Pending</th><th>Rate</th></tr></thead>
+              <tbody id="dept-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 <strong>FAXX</strong> — Unified Complaint Portal. Built with ❤️ for Students.</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/analytics.js"></script>
+</body>
+</html>

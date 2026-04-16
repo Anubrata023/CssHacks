@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FAXX Admin Login - Administrative panel access.">
+  <title>Admin Login - FAXX</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300f5d4'/%3E%3Cstop offset='100%25' style='stop-color:%237b61ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='18' width='100' height='100' fill='%23050508'/%3E%3Ctext x='50' y='70' font-size='56' font-weight='900' font-family='Arial' fill='url(%23g)' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/neumorphism.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <div class="login-bg">
+    <div class="login-orb login-orb-1"></div>
+    <div class="login-orb login-orb-2"></div>
+    <div class="login-orb login-orb-3"></div>
+  </div>
+  <div class="login-back">
+    <a href="index.html" class="btn btn-ghost btn-sm">← Back</a>
+  </div>
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="login-logo">FAXX</div>
+          <div class="login-type-badge admin">🛡️ Admin Portal</div>
+          <p class="login-subtitle">Administrative access for faculty & staff</p>
+        </div>
+        <form id="login-form" class="login-form" data-user-type="admin">
+          <div class="input-group">
+            <label for="name">Full Name</label>
+            <input type="text" class="input-field" id="name" name="name" placeholder="Enter your full name" required>
+            <div class="input-error-msg">Please enter your name</div>
+          </div>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="employeeId">Employee / Faculty ID</label>
+              <input type="text" class="input-field" id="employeeId" name="employeeId" placeholder="e.g., EMP-2024-042" required>
+              <div class="input-error-msg">Invalid Employee ID</div>
+            </div>
+            <div class="input-group">
+              <label for="department">Department</label>
+              <select class="select-field" id="department" name="department" required>
+                <option value="">Select Dept</option>
+                <option value="Computer Science & Engineering">CSE</option>
+                <option value="Information Technology">IT</option>
+                <option value="Electronics & Communication">ECE</option>
+                <option value="Electrical Engineering">EE</option>
+                <option value="Mechanical Engineering">ME</option>
+                <option value="Civil Engineering">CE</option>
+                <option value="Biotechnology">BT</option>
+                <option value="Administration">Admin</option>
+                <option value="Hostel Warden">Hostel Warden</option>
+                <option value="Mess Committee">Mess Committee</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="input-error-msg">Select a department</div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="email">College Email ID</label>
+            <input type="email" class="input-field" id="email" name="email" placeholder="yourname@college.edu" required>
+            <div class="input-error-msg">Enter a valid email</div>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+              <input type="password" class="input-field" id="password" name="password" placeholder="Enter your password" required minlength="6">
+              <button type="button" class="password-toggle" aria-label="Toggle password">👁️</button>
+            </div>
+            <div class="input-error-msg">Password must be 6+ characters</div>
+          </div>
+          <button type="submit" class="btn btn-primary login-submit">Sign In as Admin</button>
+        </form>
+        <div class="login-footer">
+          <p>Are you a student? <a href="login-student.html">Student Login →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- OTP Modal Overlay -->
+  <div class="otp-overlay" id="otp-overlay" style="display: none;">
+    <div class="otp-card glass-card">
+      <h2>OTP Verification</h2>
+      <p>Please enter the 6-digit code printed in the server terminal.</p>
+      
+      <div class="otp-timer" id="otp-timer">30s</div>
+      
+      <form id="otp-form">
+        <div class="input-group">
+          <input type="text" class="input-field" id="otp-input" placeholder="000000" maxlength="6" required autocomplete="off" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;">
+        </div>
+        <button type="submit" class="btn btn-primary" id="otp-verify-btn">Verify</button>
+      </form>
+      <div class="otp-error-msg" id="otp-error" style="color: var(--danger); margin-top: 10px; font-size: 0.85rem; text-align: center;"></div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
