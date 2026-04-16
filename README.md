@@ -110,4 +110,6 @@ Contributions, bug reports, and feature requests are welcome to make FAXX even b
 This project is licensed under the **ISC License**.
 
 > **Built with ❤️ for Students.** Elevating campus infrastructure through transparent feedback.
+>
+> 
 > -------------------------------------TEAM ARDITECHS--------------------------------------------
