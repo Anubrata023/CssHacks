@@ -32,7 +32,7 @@ function initProfile() {
   document.getElementById('profile-email').textContent = user.email;
 
   const roleEl = document.getElementById('profile-role');
-  if (user.type === 'admin') {
+  if (user.type === 'admin' || user.role === 'admin') {
     roleEl.textContent = '🛡️ Admin';
     roleEl.className = 'profile-role admin';
   } else {
@@ -44,11 +44,11 @@ function initProfile() {
   document.getElementById('detail-name').textContent = user.name;
   document.getElementById('detail-email').textContent = user.email;
   document.getElementById('detail-department').textContent = user.department || '-';
-  document.getElementById('detail-type').textContent = user.type === 'admin' ? 'Administrator' : 'Student';
+  document.getElementById('detail-type').textContent = (user.type === 'admin' || user.role === 'admin') ? 'Administrator' : 'Student';
 
   const idLabel = document.getElementById('detail-id-label');
   const idVal = document.getElementById('detail-id');
-  if (user.type === 'admin') {
+  if (user.type === 'admin' || user.role === 'admin') {
     idLabel.textContent = 'Employee ID';
     idVal.textContent = user.employeeId || '-';
   } else {
@@ -81,7 +81,7 @@ function renderComplaintHistory() {
 
   if (!user) return;
 
-  const isAdmin = user.type === 'admin';
+  const isAdmin = (user.type === 'admin' || user.role === 'admin');
   const displayComplaints = isAdmin ? complaints : complaints.filter(c => c.user === user.name);
 
   if (isAdmin) {
