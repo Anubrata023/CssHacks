@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="FAXX - Public Feed. View anonymous complaints from students, upvote the ones you agree with, and see what's trending across the campus.">
+  <title>Public Feed — FAXX</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300f5d4'/%3E%3Cstop offset='100%25' style='stop-color:%237b61ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='18' width='100' height='100' fill='%23050508'/%3E%3Ctext x='50' y='70' font-size='56' font-weight='900' font-family='Arial' fill='url(%23g)' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/neumorphism.css">
+  <link rel="stylesheet" href="css/public-feed.css">
+</head>
+
+<body class="public-feed-page">
+
+  <!-- Loader -->
+  <div class="loader-overlay">
+    <div class="loader-text"><span>F</span><span>E</span><span>E</span><span>D</span></div>
+    <div class="loader-subtitle">LOADING ANONYMOUS VOICES</div>
+    <div class="loader-bar">
+      <div class="loader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Side Panel -->
+  <div class="side-panel-overlay"></div>
+  <nav class="side-panel" id="side-panel">
+    <div class="side-panel-header">
+      <div class="side-panel-logo">FAXX</div>
+      <div class="side-panel-tagline">Unified Complaint Portal</div>
+    </div>
+    <div class="side-panel-nav">
+      <a href="index.html" class="side-panel-link"><span class="link-icon">🏠</span><span>Home</span></a>
+      <a href="public-feed.html" class="side-panel-link active"><span class="link-icon">🌐</span><span>Public Feed</span></a>
+      <a href="index.html#complaints" class="side-panel-link"><span
+          class="link-icon">📋</span><span>Complaints</span></a>
+      <a href="analytics.html" class="side-panel-link"><span class="link-icon">📊</span><span>Analytics</span></a>
+      <a href="profile.html" class="side-panel-link"><span class="link-icon">👤</span><span>My Profile</span></a>
+      <div class="side-panel-divider"></div>
+      <a href="login-student.html" class="side-panel-link login-nav-link"><span class="link-icon">🎓</span><span>Student
+          Login</span></a>
+      <a href="login-admin.html" class="side-panel-link login-nav-link"><span class="link-icon">🛡️</span><span>Admin
+          Login</span></a>
+      <a href="#" class="side-panel-link logout-link" style="display:none;"><span
+          class="link-icon">🚪</span><span>Logout</span></a>
+    </div>
+    <div class="side-panel-divider"></div>
+    <div class="theme-toggle-wrapper">
+      <span class="theme-toggle-label">Dark Mode</span>
+      <div class="theme-toggle dark" id="theme-toggle"></div>
+    </div>
+  </nav>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-left">
+      <button class="hamburger" id="hamburger-btn"
+        aria-label="Open menu"><span></span><span></span><span></span></button>
+      <a href="index.html" class="navbar-brand">FAXX</a>
+    </div>
+    <div class="navbar-right">
+      <a href="public-feed.html" class="navbar-link active">Public Feed</a>
+      <a href="index.html#complaints" class="navbar-link">Complaints</a>
+      <a href="analytics.html" class="navbar-link">Analytics</a>
+      <a href="profile.html" class="navbar-link navbar-user-link">Profile</a>
+      <a href="login-student.html" class="navbar-icon login-nav-link" data-tooltip="Login" aria-label="Login">👤</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <!-- Hero Section -->
+    <section class="feed-hero">
+      <div class="feed-hero-bg"></div>
+      <div class="container feed-hero-content reveal">
+        <h1 class="page-title">Public <span class="accent-text">Feed</span></h1>
+        <p class="page-subtitle">See what's happening around campus. Raise your voice by upvoting complaints that matter.</p>
+      </div>
+    </section>
+
+    <!-- Trending Section -->
+    <section class="trending-section section" id="trending-section" style="display: none;">
+      <div class="container reveal-scale">
+        <div class="section-header">
+          <span class="section-label">🔥 Trending of the Week</span>
+        </div>
+        <div id="trending-container" class="trending-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Feed Tools Section -->
+    <section class="feed-tools section">
+      <div class="container reveal">
+        <div class="tools-wrapper glass-card">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="feed-search" placeholder="Search complaints..." />
+          </div>
+          <div class="filter-box">
+            <select id="feed-category-filter">
+              <option value="all">All Categories</option>
+              <option value="mess-food">Mess & Food</option>
+              <option value="hostel">Hostel</option>
+              <option value="academics">Academics</option>
+              <option value="infrastructure">Infrastructure</option>
+              <option value="administration">Administration</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feed Timeline -->
+    <section class="feed-timeline section">
+      <div class="container">
+        <div id="feed-container" class="feed-grid stagger-children">
+          <!-- Populated by JS -->
+        </div>
+        
+        <div id="feed-empty-state" class="empty-state" style="display: none;">
+          <div class="empty-icon">📭</div>
+          <h3>No complaints found</h3>
+          <p>Be the first to file one!</p>
+          <a href="index.html#complaints" class="btn btn-primary mt-3">File Complaint</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 <strong>FAXX</strong> — Unified Complaint Portal. Built with ❤️ for Students.</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/public-feed.js"></script>
+</body>
+
+</html>

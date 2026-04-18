@@ -138,7 +138,7 @@ function renderComplaintHistory() {
         <div class="complaint-history-icon">${catIcon}</div>
         <div class="complaint-history-info">
           <div class="complaint-history-title">${c.title}</div>
-          <div class="complaint-history-meta">${c.subcategory} · ${dateStr} · By: ${c.user} · ID: ${c.id}</div>
+          <div class="complaint-history-meta">${c.subcategory} · ${dateStr} · By: ${c.user} · 👍 ${c.upvotes || 0} Upvotes</div>
         </div>
         <div class="complaint-history-status">
           <span class="badge ${statusClasses[c.status] || 'badge-info'}">
