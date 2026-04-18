@@ -9,7 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initCategoryPage() {
   const params = new URLSearchParams(window.location.search);
-  const categoryKey = params.get('cat');
+  let categoryKey = params.get('cat');
+
+  try {
+    if (!categoryKey) {
+      categoryKey = sessionStorage.getItem('faxx_category');
+    } else {
+      sessionStorage.setItem('faxx_category', categoryKey);
+    }
+  } catch (e) {
+    console.warn("sessionStorage is unavailable:", e);
+  }
 
   // Added safety check for external data
   if (!categoryKey || typeof COMPLAINT_CATEGORIES === 'undefined' || !COMPLAINT_CATEGORIES[categoryKey]) {
@@ -157,11 +167,16 @@ function setupFormListeners() {
   const form = document.getElementById('complaint-form');
   if (!form) return;
 
+<<<<<<< HEAD
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     try { // FIXED: Added missing try block
       const submitBtn = form.querySelector('.submit-complaint-btn');
+=======
+      const fileInput = document.getElementById('complaint-file');
+      
+>>>>>>> 66c98d28c5eb521ba5931ab271ac02598612bfc8
       const formData = new FormData(form);
 
       const complaint = {
@@ -171,6 +186,7 @@ function setupFormListeners() {
         title: formData.get('complaint-title'), // Matches hidden input name in HTML
         description: formData.get('complaint-description'),
         urgency: formData.get('complaint-urgency'),
+        documentName: (fileInput && fileInput.files.length) ? fileInput.files[0].name : null,
         status: 'pending',
         date: new Date().toISOString(),
         user: UserSession.getUser()?.name || 'Student'

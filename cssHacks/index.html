@@ -34,6 +34,7 @@
     </div>
     <div class="side-panel-nav">
       <a href="index.html" class="side-panel-link active"><span class="link-icon">🏠</span><span>Home</span></a>
+      <a href="public-feed.html" class="side-panel-link"><span class="link-icon">🌐</span><span>Public Feed</span></a>
       <a href="index.html#complaints" class="side-panel-link"><span
           class="link-icon">📋</span><span>Complaints</span></a>
       <a href="analytics.html" class="side-panel-link"><span class="link-icon">📊</span><span>Analytics</span></a>
@@ -61,6 +62,7 @@
       <a href="index.html" class="navbar-brand">FAXX</a>
     </div>
     <div class="navbar-right">
+      <a href="public-feed.html" class="navbar-link">Public Feed</a>
       <a href="index.html#complaints" class="navbar-link">Complaints</a>
       <a href="analytics.html" class="navbar-link">Analytics</a>
       <a href="profile.html" class="navbar-link navbar-user-link">Profile</a>
@@ -126,42 +128,42 @@
             infrastructure.</p>
         </div>
         <div class="complaints-grid stagger-children">
-          <a href="category.html?cat=mess-food" class="complaint-card glass-card-interactive" id="card-mess">
+          <a href="category?cat=mess-food" onclick="sessionStorage.setItem('faxx_category', 'mess-food')" class="complaint-card glass-card-interactive" id="card-mess">
             <div class="complaint-card-icon">🍽️</div>
             <h3 class="complaint-card-title">Mess & Food</h3>
             <p class="complaint-card-desc">Food quality, hygiene, menu, timing, and mess staff behavior.</p>
             <div class="complaint-card-count"><span>16 complaint types</span></div>
             <div class="complaint-card-arrow">→</div>
           </a>
-          <a href="category.html?cat=hostel" class="complaint-card glass-card-interactive" id="card-hostel">
+          <a href="category?cat=hostel" onclick="sessionStorage.setItem('faxx_category', 'hostel')" class="complaint-card glass-card-interactive" id="card-hostel">
             <div class="complaint-card-icon">🏠</div>
             <h3 class="complaint-card-title">Hostel</h3>
             <p class="complaint-card-desc">Room maintenance, water supply, plumbing, cleanliness, security.</p>
             <div class="complaint-card-count"><span>21 complaint types</span></div>
             <div class="complaint-card-arrow">→</div>
           </a>
-          <a href="category.html?cat=academics" class="complaint-card glass-card-interactive" id="card-academics">
+          <a href="category?cat=academics" onclick="sessionStorage.setItem('faxx_category', 'academics')" class="complaint-card glass-card-interactive" id="card-academics">
             <div class="complaint-card-icon">📚</div>
             <h3 class="complaint-card-title">Academics</h3>
             <p class="complaint-card-desc">Faculty, curriculum, examinations, classroom infrastructure.</p>
             <div class="complaint-card-count"><span>18 complaint types</span></div>
             <div class="complaint-card-arrow">→</div>
           </a>
-          <a href="category.html?cat=infrastructure" class="complaint-card glass-card-interactive" id="card-infra">
+          <a href="category?cat=infrastructure" onclick="sessionStorage.setItem('faxx_category', 'infrastructure')" class="complaint-card glass-card-interactive" id="card-infra">
             <div class="complaint-card-icon">🏗️</div>
             <h3 class="complaint-card-title">Campus Infrastructure</h3>
             <p class="complaint-card-desc">WiFi, IT services, transport, sports, parking, lighting.</p>
             <div class="complaint-card-count"><span>20 complaint types</span></div>
             <div class="complaint-card-arrow">→</div>
           </a>
-          <a href="category.html?cat=administration" class="complaint-card glass-card-interactive" id="card-admin">
+          <a href="category?cat=administration" onclick="sessionStorage.setItem('faxx_category', 'administration')" class="complaint-card glass-card-interactive" id="card-admin">
             <div class="complaint-card-icon">🏛️</div>
             <h3 class="complaint-card-title">Administration</h3>
             <p class="complaint-card-desc">Fees, documentation, certificates, scholarships, office.</p>
             <div class="complaint-card-count"><span>14 complaint types</span></div>
             <div class="complaint-card-arrow">→</div>
           </a>
-          <a href="category.html?cat=others" class="complaint-card glass-card-interactive" id="card-others">
+          <a href="category?cat=others" onclick="sessionStorage.setItem('faxx_category', 'others')" class="complaint-card glass-card-interactive" id="card-others">
             <div class="complaint-card-icon">📝</div>
             <h3 class="complaint-card-title">Other Complaints</h3>
             <p class="complaint-card-desc">Ragging, harassment, suggestions, feedback, miscellaneous.</p>
