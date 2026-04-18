@@ -8,7 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initCategoryPage() {
   const params = new URLSearchParams(window.location.search);
-  const categoryKey = params.get('cat');
+  let categoryKey = params.get('cat');
+
+  try {
+    if (!categoryKey) {
+      categoryKey = sessionStorage.getItem('faxx_category');
+    } else {
+      sessionStorage.setItem('faxx_category', categoryKey);
+    }
+  } catch (e) {
+    console.warn("sessionStorage is unavailable:", e);
+  }
 
   if (!categoryKey || !COMPLAINT_CATEGORIES[categoryKey]) {
     document.getElementById('category-title').textContent = 'Category Not Found';
@@ -186,6 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
+      const fileInput = document.getElementById('complaint-file');
+      
       const formData = new FormData(form);
       const complaint = {
         id: 'CMP-' + Date.now(),
@@ -194,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         title: formData.get('complaint-title'),
         description: formData.get('complaint-description'),
         urgency: formData.get('complaint-urgency'),
+        documentName: (fileInput && fileInput.files.length) ? fileInput.files[0].name : null,
         status: 'pending',
         date: new Date().toISOString(),
         user: UserSession.getUser()?.name || 'Anonymous'

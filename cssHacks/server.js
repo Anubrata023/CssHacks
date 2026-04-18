@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static frontend files first
-app.use(express.static(path.join(__dirname, './')));
+app.use(express.static(path.join(__dirname, './'), { extensions: ['html'] }));
 
 // API Routes
 const authRoutes = require('./routes/authRoutes');
