@@ -26,7 +26,7 @@
 
 .glass-card:hover {
   border-color: var(--border-accent);
-  box-shadow: 0 8px 40px rgba(10,22,40,0.5), 0 0 30px rgba(167,118,147,0.08);
+  box-shadow: 0 8px 40px rgba(3,6,55,0.5), 0 0 30px rgba(145,10,103,0.08);
 }
 
 .glass-card:hover::before { opacity: 1; }
@@ -49,7 +49,7 @@
   position: absolute;
   top: -50%; left: -50%;
   width: 200%; height: 200%;
-  background: radial-gradient(ellipse at center, rgba(167,118,147,0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at center, rgba(145,10,103,0.08) 0%, transparent 60%);
   opacity: 0;
   transition: opacity var(--transition-slow);
   pointer-events: none;
@@ -58,7 +58,7 @@
 .glass-card-interactive:hover {
   border-color: var(--border-accent-hover);
   transform: translateY(-4px);
-  box-shadow: 0 10px 40px rgba(10,22,40,0.6), 0 0 40px rgba(167,118,147,0.1);
+  box-shadow: 0 10px 40px rgba(3,6,55,0.6), 0 0 40px rgba(145,10,103,0.1);
 }
 
 .glass-card-interactive:hover::before { opacity: 1; }
@@ -69,7 +69,7 @@
 
 /* Inset / recessed card */
 .glass-card-inset {
-  background: rgba(10,22,40,0.5);
+  background: rgba(3,6,55,0.5);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: var(--space-lg);
@@ -96,14 +96,14 @@
 
 .btn-primary {
   background: var(--accent);
-  color: #F2F3F4;
+  color: #F2F0F7;
   border-color: var(--accent);
   font-weight: 700;
 }
 
 .btn-primary:hover {
-  background: #b88aa3;
-  box-shadow: 0 0 30px var(--accent-glow), 0 4px 15px rgba(167,118,147,0.25);
+  background: #a80d76;
+  box-shadow: 0 0 30px var(--accent-glow), 0 4px 15px rgba(145,10,103,0.25);
   transform: translateY(-2px);
 }
 
@@ -122,19 +122,19 @@
   background: var(--accent-bg);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 20px rgba(167,118,147,0.12);
+  box-shadow: 0 0 20px rgba(145,10,103,0.12);
   transform: translateY(-2px);
 }
 
 .btn-ghost {
-  background: rgba(222,209,198,0.06);
+  background: rgba(212,198,224,0.06);
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
 }
 
 .btn-ghost:hover {
-  background: rgba(222,209,198,0.12);
-  border-color: rgba(222,209,198,0.2);
+  background: rgba(212,198,224,0.12);
+  border-color: rgba(212,198,224,0.2);
   color: var(--text-primary);
 }
 
@@ -174,7 +174,7 @@
 .input-field {
   width: 100%;
   padding: 14px 16px;
-  background: rgba(10,22,40,0.5);
+  background: rgba(3,6,55,0.5);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   font-size: 0.9rem;
@@ -186,17 +186,17 @@
 
 .input-field:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(167,118,147,0.12), 0 0 20px rgba(167,118,147,0.08);
+  box-shadow: 0 0 0 3px rgba(145,10,103,0.12), 0 0 20px rgba(145,10,103,0.08);
 }
 
 .input-field:hover:not(:focus) {
-  border-color: rgba(222,209,198,0.15);
+  border-color: rgba(212,198,224,0.15);
 }
 
 .select-field {
   width: 100%;
   padding: 14px 16px;
-  background: rgba(10,22,40,0.5);
+  background: rgba(3,6,55,0.5);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   font-size: 0.9rem;
@@ -216,13 +216,13 @@
 
 .select-field:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(167,118,147,0.12);
+  box-shadow: 0 0 0 3px rgba(145,10,103,0.12);
 }
 
 .textarea-field {
   width: 100%;
   padding: 14px 16px;
-  background: rgba(10,22,40,0.5);
+  background: rgba(3,6,55,0.5);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   font-size: 0.9rem;
@@ -235,7 +235,7 @@
 
 .textarea-field:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(167,118,147,0.12);
+  box-shadow: 0 0 0 3px rgba(145,10,103,0.12);
 }
 
 /* ---------- Badges ---------- */
@@ -263,7 +263,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #F2F3F4;
+  color: #F2F0F7;
   font-weight: 800;
   font-size: 1.1rem;
   flex-shrink: 0;
@@ -275,7 +275,7 @@
 
 /* ---------- Progress ---------- */
 .progress-bar {
-  background: rgba(222,209,198,0.08);
+  background: rgba(212,198,224,0.08);
   border-radius: 20px;
   height: 8px;
   overflow: hidden;
@@ -306,4 +306,172 @@
 
 @media (max-width: 600px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   Light Mode — Glassmorphic & Neumorphic Overrides
+   ============================================ */
+
+/* Glass Cards — Frosted glass with soft neumorphic shadows */
+body.light-mode .glass-card {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    6px 6px 20px rgba(44, 44, 44, 0.06),
+    -4px -4px 16px rgba(255, 255, 255, 0.8);
+}
+
+body.light-mode .glass-card::before {
+  background: linear-gradient(90deg, transparent, rgba(133, 57, 83, 0.25), transparent);
+}
+
+body.light-mode .glass-card:hover {
+  border-color: rgba(133, 57, 83, 0.15);
+  box-shadow:
+    8px 8px 28px rgba(44, 44, 44, 0.08),
+    -4px -4px 16px rgba(255, 255, 255, 0.9),
+    0 0 30px rgba(133, 57, 83, 0.06);
+}
+
+body.light-mode .glass-card-interactive {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    6px 6px 20px rgba(44, 44, 44, 0.06),
+    -4px -4px 16px rgba(255, 255, 255, 0.8);
+}
+
+body.light-mode .glass-card-interactive::before {
+  background: radial-gradient(ellipse at center, rgba(133, 57, 83, 0.04) 0%, transparent 60%);
+}
+
+body.light-mode .glass-card-interactive:hover {
+  border-color: rgba(133, 57, 83, 0.2);
+  box-shadow:
+    10px 10px 32px rgba(44, 44, 44, 0.1),
+    -6px -6px 20px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(133, 57, 83, 0.06);
+}
+
+body.light-mode .glass-card-inset {
+  background: rgba(243, 244, 244, 0.6);
+  border: 1px solid rgba(44, 44, 44, 0.04);
+  box-shadow:
+    inset 3px 3px 8px rgba(44, 44, 44, 0.04),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.7);
+}
+
+/* Buttons — Neumorphic */
+body.light-mode .btn {
+  border: 1px solid rgba(44, 44, 44, 0.06);
+  transition: all 0.3s ease;
+}
+
+body.light-mode .btn-primary {
+  background: linear-gradient(135deg, #853953, #612D53);
+  color: #F3F4F4;
+  border-color: rgba(133, 57, 83, 0.3);
+  box-shadow:
+    4px 4px 12px rgba(133, 57, 83, 0.2),
+    -2px -2px 8px rgba(255, 255, 255, 0.6);
+}
+
+body.light-mode .btn-primary:hover {
+  background: linear-gradient(135deg, #9a4564, #724060);
+  box-shadow:
+    6px 6px 18px rgba(133, 57, 83, 0.3),
+    -3px -3px 10px rgba(255, 255, 255, 0.7),
+    0 0 25px rgba(133, 57, 83, 0.15);
+}
+
+body.light-mode .btn-primary:active {
+  box-shadow:
+    inset 3px 3px 8px rgba(97, 45, 83, 0.3),
+    inset -2px -2px 6px rgba(133, 57, 83, 0.1);
+}
+
+body.light-mode .btn-outline {
+  background: rgba(255, 255, 255, 0.5);
+  color: #2C2C2C;
+  border: 1px solid rgba(133, 57, 83, 0.2);
+}
+
+body.light-mode .btn-outline:hover {
+  background: rgba(133, 57, 83, 0.06);
+  color: #853953;
+  border-color: #853953;
+  box-shadow: 4px 4px 14px rgba(44, 44, 44, 0.06), -2px -2px 8px rgba(255, 255, 255, 0.7);
+}
+
+body.light-mode .btn-ghost {
+  background: rgba(243, 244, 244, 0.5);
+  color: #4a4a4a;
+  border: 1px solid rgba(44, 44, 44, 0.06);
+}
+
+body.light-mode .btn-ghost:hover {
+  background: rgba(243, 244, 244, 0.8);
+  color: #2C2C2C;
+  box-shadow: 3px 3px 10px rgba(44, 44, 44, 0.05), -2px -2px 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Inputs — Neumorphic inset */
+body.light-mode .input-field,
+body.light-mode .select-field,
+body.light-mode .textarea-field {
+  background: rgba(243, 244, 244, 0.6);
+  border: 1px solid rgba(44, 44, 44, 0.06);
+  color: #2C2C2C;
+  box-shadow:
+    inset 2px 2px 6px rgba(44, 44, 44, 0.04),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+}
+
+body.light-mode .input-field::placeholder,
+body.light-mode .textarea-field::placeholder { color: #999; }
+
+body.light-mode .input-field:focus,
+body.light-mode .select-field:focus,
+body.light-mode .textarea-field:focus {
+  border-color: #853953;
+  box-shadow:
+    0 0 0 3px rgba(133, 57, 83, 0.1),
+    inset 2px 2px 6px rgba(44, 44, 44, 0.03),
+    0 0 15px rgba(133, 57, 83, 0.06);
+}
+
+body.light-mode .select-field option {
+  background: #F3F4F4;
+  color: #2C2C2C;
+}
+
+/* Badges */
+body.light-mode .badge-success { background: rgba(45, 154, 111, 0.1); color: #2d9a6f; border-color: rgba(45, 154, 111, 0.2); }
+body.light-mode .badge-warning { background: rgba(196, 137, 26, 0.1); color: #c4891a; border-color: rgba(196, 137, 26, 0.2); }
+body.light-mode .badge-danger { background: rgba(192, 57, 43, 0.1); color: #c0392b; border-color: rgba(192, 57, 43, 0.2); }
+body.light-mode .badge-info { background: rgba(46, 134, 193, 0.1); color: #2e86c1; border-color: rgba(46, 134, 193, 0.2); }
+
+/* Avatar — Neumorphic glow */
+body.light-mode .avatar {
+  background: linear-gradient(135deg, #853953, #612D53);
+  color: #F3F4F4;
+  box-shadow:
+    4px 4px 14px rgba(133, 57, 83, 0.2),
+    -3px -3px 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Progress Bar — Neumorphic */
+body.light-mode .progress-bar {
+  background: rgba(243, 244, 244, 0.6);
+  border: 1px solid rgba(44, 44, 44, 0.04);
+  box-shadow:
+    inset 2px 2px 6px rgba(44, 44, 44, 0.05),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+}
+
+body.light-mode .progress-fill {
+  background: linear-gradient(135deg, #853953, #612D53);
+  box-shadow: 0 0 8px rgba(133, 57, 83, 0.3);
 }

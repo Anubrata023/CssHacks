@@ -3,12 +3,46 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
   initLoader();
   initSidePanel();
   initScrollReveal();
   initNavbarScroll();
   initSessionUI();
 });
+
+/* ---------- Theme Toggle ---------- */
+function initThemeToggle() {
+  const toggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('faxx_theme');
+
+  // Apply saved theme immediately (before paint)
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    if (toggle) toggle.classList.remove('dark');
+  } else {
+    document.body.classList.remove('light-mode');
+    if (toggle) toggle.classList.add('dark');
+  }
+
+  if (!toggle) return;
+
+  toggle.addEventListener('click', () => {
+    const isCurrentlyDark = toggle.classList.contains('dark');
+
+    if (isCurrentlyDark) {
+      // Switch to Light Mode
+      document.body.classList.add('light-mode');
+      toggle.classList.remove('dark');
+      localStorage.setItem('faxx_theme', 'light');
+    } else {
+      // Switch to Dark Mode
+      document.body.classList.remove('light-mode');
+      toggle.classList.add('dark');
+      localStorage.setItem('faxx_theme', 'dark');
+    }
+  });
+}
 
 /* ---------- Loader ---------- */
 function initLoader() {

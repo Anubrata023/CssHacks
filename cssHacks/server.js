@@ -13,6 +13,7 @@ const app = express();
 // ============================================
 app.locals.users = [];
 app.locals.otps = [];
+app.locals.complaints = [];
 
 // Middleware
 app.use(cors());
@@ -24,7 +25,9 @@ app.use(express.static(path.join(__dirname, './')));
 
 // API Routes
 const authRoutes = require('./routes/authRoutes');
+const complaintRoutes = require('./routes/complaintRoutes');
 app.use('/api/auth', authRoutes);
+app.use('/api/complaints', complaintRoutes);
 
 // FIXED: Node v25 Wildcard Catch-all
 // '*any' satisfies the named parameter requirement of Path-to-Regexp V8

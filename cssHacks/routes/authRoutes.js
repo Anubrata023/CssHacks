@@ -127,7 +127,20 @@ router.post('/verify-otp', (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET || 'faxx_secret_key', { expiresIn: '1h' });
 
     console.log(`[FAXX] ✅ ${email} authenticated successfully.`);
-    res.json({ token, user: payload.user });
+    // Return full user profile for frontend compatibility
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        type: user.role,
+        role: user.role,
+        department: user.department,
+        scholarId: user.scholarId,
+        employeeId: user.employeeId
+      }
+    });
 
   } catch (error) {
     console.error(error);

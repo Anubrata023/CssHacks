@@ -1,5 +1,5 @@
 /* ============================================
-   FAXX - Profile JavaScript
+   FAXX - Profile JavaScript (Rectified)
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,14 +25,17 @@ function initProfile() {
     return;
   }
 
+  // FIXED: Normalize role — backend sends 'role', frontend uses 'type'
+  const userType = user.type || user.role || 'student';
+
   // Fill profile data
   const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   document.getElementById('profile-avatar').textContent = initials;
   document.getElementById('profile-name').textContent = user.name;
-  document.getElementById('profile-email').textContent = user.email;
+  document.getElementById('profile-email').textContent = user.email || '';
 
   const roleEl = document.getElementById('profile-role');
-  if (user.type === 'admin') {
+  if (userType === 'admin') {
     roleEl.textContent = '🛡️ Admin';
     roleEl.className = 'profile-role admin';
   } else {
@@ -42,13 +45,13 @@ function initProfile() {
 
   // Detail cards
   document.getElementById('detail-name').textContent = user.name;
-  document.getElementById('detail-email').textContent = user.email;
+  document.getElementById('detail-email').textContent = user.email || '-';
   document.getElementById('detail-department').textContent = user.department || '-';
-  document.getElementById('detail-type').textContent = user.type === 'admin' ? 'Administrator' : 'Student';
+  document.getElementById('detail-type').textContent = userType === 'admin' ? 'Administrator' : 'Student';
 
   const idLabel = document.getElementById('detail-id-label');
   const idVal = document.getElementById('detail-id');
-  if (user.type === 'admin') {
+  if (userType === 'admin') {
     idLabel.textContent = 'Employee ID';
     idVal.textContent = user.employeeId || '-';
   } else {
@@ -81,7 +84,9 @@ function renderComplaintHistory() {
 
   if (!user) return;
 
-  const isAdmin = user.type === 'admin';
+  // FIXED: Check both 'type' and 'role' for admin detection
+  const userType = user.type || user.role || 'student';
+  const isAdmin = userType === 'admin';
   const displayComplaints = isAdmin ? complaints : complaints.filter(c => c.user === user.name);
 
   if (isAdmin) {
@@ -152,17 +157,38 @@ function renderComplaintHistory() {
 }
 
 // Global function to update status from onclick
-window.updateStatus = function(id, status, event) {
+window.updateStatus = async function(id, status, event) {
   event.stopPropagation(); // Prevent the toggle from triggering
   
   if (!confirm('Are you sure you want to mark this complaint as ' + status + '?')) return;
   
+  const user = UserSession.getUser();
+  const adminName = user?.name || 'Admin';
+
+  // 1. Update localStorage immediately (instant UI)
   let complaints = JSON.parse(localStorage.getItem('faxx_complaints') || '[]');
   const idx = complaints.findIndex(c => c.id === id);
   if (idx !== -1) {
     complaints[idx].status = status;
     localStorage.setItem('faxx_complaints', JSON.stringify(complaints));
-    showToast('Complaint status updated to ' + status, 'success');
     renderComplaintHistory(); // re-render
+  }
+
+  // 2. PATCH to backend (triggers terminal notification)
+  try {
+    await fetch(`/api/complaints/${id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status, admin: adminName })
+    });
+  } catch (err) {
+    console.warn('Backend notification failed (offline mode):', err.message);
+  }
+
+  // 3. Pop-up Notification
+  if (status === 'resolved') {
+    showToast('Your issue is resolved', 'success');
+  } else {
+    showToast('Complaint status updated to ' + status, 'success');
   }
 };
