@@ -3,12 +3,12 @@
 # ⚡ FAXX — Unified Student Grievance Portal
 
 ![FAXX Banner](https://img.shields.io/badge/FAXX-Unified_Portal-910A67?style=for-the-badge&logo=appveyor)
-![Version](https://img.shields.io/badge/version-2.0.0-910A67.svg)
+![Version](https://img.shields.io/badge/version-2.1.0-910A67.svg)
 ![License](https://img.shields.io/badge/license-ISC-green.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
 ![Auth](https://img.shields.io/badge/Auth-OTP%20%2B%20JWT-720455.svg)
 
-**FAXX** is a full-stack student grievance portal that lets students file, track, upvote, and comment on campus complaints — while admins manage issues prioritized by community escalation. Built with glassmorphic UI, terminal-based OTP authentication, and real-time notification systems.
+**FAXX** is a full-stack student grievance portal that lets students file, track, upvote, and comment on campus complaints — while admins manage issues prioritized by community escalation. Built with glassmorphic UI, terminal-based OTP authentication, an AI-powered chatbot assistant, and real-time notification systems.
 
 </div>
 
@@ -53,9 +53,20 @@
 ### 🎨 Premium UI/UX
 - **Dark Mode** — Deep indigo palette (`#030637`, `#3C0753`, `#720455`, `#910A67`)
 - **Light Mode** — Elegant palette (`#F3F4F4`, `#853953`, `#612D53`, `#2C2C2C`)
-- **Theme Toggle** — Persisted in localStorage, instant switch via sidebar
+- **Theme Toggle** — Persisted in localStorage, instant switch via sidebar or chatbot command
 - **Glassmorphism & Neumorphism** — Frosted glass cards, soft shadows, blur effects
 - **Micro-Animations** — Hover effects, reveal animations, loading transitions
+
+### 🤖 Smart Chatbot Assistant
+- **FAXX Bot** — Interactive AI-powered assistant on the homepage
+- **Feature Guide** — Explains all platform capabilities to new users
+- **Navigation** — "Guide me to..." / "Take me to..." commands for instant page navigation
+- **Live Data** — "Most upvoted issue" fetches real-time data from complaints
+- **Stats on Demand** — "Show stats" displays total complaints, resolution rate, upvotes
+- **Theme Control** — "Switch to light mode" / "Dark mode" toggles the theme via chat
+- **Transparency Messaging** — Reassures users that filing complaints is safe and democratic
+- **Smart Matching** — Fuzzy keyword matching for natural language queries
+- **Quick Replies** — Pre-built suggestion buttons for common questions
 
 ### ⚡ API Test Console
 - Built-in interactive API testing page at `/api-test.html`
@@ -108,7 +119,8 @@
 │   ├── public-feed.css           # Feed, comments, escalation styles
 │   ├── login.css                 # Auth page styles
 │   ├── analytics.css             # Dashboard styles
-│   └── api-test.css              # API console styles
+│   ├── api-test.css              # API console styles
+│   └── chatbot.css              # Chatbot widget styles
 │
 ├── 📁 js/
 │   ├── global.js                 # Theme toggle, UserSession, showToast, nav
@@ -119,7 +131,8 @@
 │   ├── profile.js                # Profile rendering & admin complaint mgmt
 │   ├── public-feed.js            # Feed rendering, upvotes, comments, sort
 │   ├── analytics.js              # Dashboard data visualization
-│   └── api-test.js               # API console logic
+│   ├── api-test.js               # API console logic
+│   └── chatbot.js               # Smart chatbot assistant
 │
 ├── 📁 assets/                    # Logo, images
 │
