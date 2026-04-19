@@ -1,106 +1,237 @@
-# FAXX - Unified Student Complaint Portal
+<div align="center">
 
-![FAXX Banner](https://img.shields.io/badge/FAXX-Unified_Portal-7b61ff?style=for-the-badge&logo=appveyor)
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+# ⚡ FAXX — Unified Student Grievance Portal
+
+![FAXX Banner](https://img.shields.io/badge/FAXX-Unified_Portal-910A67?style=for-the-badge&logo=appveyor)
+![Version](https://img.shields.io/badge/version-2.0.0-910A67.svg)
 ![License](https://img.shields.io/badge/license-ISC-green.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
+![Auth](https://img.shields.io/badge/Auth-OTP%20%2B%20JWT-720455.svg)
 
-**FAXX** is a comprehensive, modern, and unified portal designed to streamline the student complaint and grievance reporting process. Designed with premium visual aesthetics (dark mode, glassmorphism, responsive UI) and robust backend architecture, FAXX makes lodging complaints about hostel, mess, academics, and infrastructure fast and transparent.
+**FAXX** is a full-stack student grievance portal that lets students file, track, upvote, and comment on campus complaints — while admins manage issues prioritized by community escalation. Built with glassmorphic UI, terminal-based OTP authentication, and real-time notification systems.
 
----
-
-## 🎨 Key Features
-
-- **Quick & Transparent Submission**: File granular complaints logically categorized under Mess, Hostel, Academics, Infrastructure, etc.
-- **Premium Gen Z UI**: Crafted with dynamic hover effects, smooth transitions, and a stunning "dark mode" aesthetic utilizing glassmorphism and deep neon accents.
-- **Dual Portal Access**: Dedicated login ecosystems for both **Students** (submitting/tracking) and **Admins** (managing/resolving).
-- **Responsive Navigation**: A dynamic sidebar/hamburger menu scheme ensures flawless experiences on any device.
-- **Live Analytics Dashboard**: Visualizes institutional data regarding complaint volumes, resolution speeds, and satisfaction indicators.
-- **Real-Time Tracking**: Students can actively monitor the status of their reported issues.
+</div>
 
 ---
 
-## 🏗️ Technology Stack
+## 🎯 What It Does
 
-FAXX utilizes a full-stack JavaScript environment with the following core technologies:
+| Role | What they can do |
+|------|-----------------|
+| **🎓 Student** | File categorized complaints, track status, upvote others' issues, add comments |
+| **🛡️ Admin** | View all complaints sorted by community upvotes (highest priority first), resolve/reject with terminal notifications |
+| **👀 Public** | Browse the live feed, see trending issues, search & filter by category |
 
-### **Frontend**
-- **HTML5 & CSS3**: Semantic elements paired with a massive custom design system (`global.css`, `index.css`, `neumorphism.css`).
-- **Vanilla JavaScript**: Lightweight and powerful DOM manipulation, form handling, and API integration.
+---
 
-### **Backend**
-- **Node.js**: Asynchronous JavaScript runtime environment.
-- **Express.js**: Minimalist web framework for handling routing, static asset serving, and RESTful API endpoints.
-- **Authentication**: Custom implemented authentication using `bcryptjs` and `jsonwebtoken` (JWT).
-- **Storage**: Mongoose/MongoDB schemas built into the architecture. *(Note: Currently configured to utilize an **In-Memory Database** for rapid horizontal testing/deployment without requiring a live MongoDB instance).*
+## ✨ Key Features
+
+### 🔐 Authentication
+- **Terminal-Based OTP** — OTP codes print directly to the server terminal (no email service needed)
+- **30-Second Verification Window** — Strict time-limited OTP with 3-attempt lockout
+- **JWT Sessions** — Secure token-based authentication with 1-hour expiry
+- **Dual Login** — Separate portals for Students (`/login-student.html`) and Admins (`/login-admin.html`)
+
+### 📋 Complaint System
+- **Categorized Filing** — Organized under Hostel, Mess & Food, Academics, Infrastructure, Administration
+- **Subcategory Drill-Down** — Each category has granular subcategories with specific complaint types
+- **File Attachments** — Upload area for supporting documents
+- **Real-Time Tracking** — Status updates: Pending → In Progress → Resolved/Rejected
+
+### 🔥 Community Escalation
+- **Upvote System** — Users upvote complaints they agree with
+- **Priority Sorting** — Most upvoted issues float to the top of the admin's stack
+- **Escalation Badges** — `📢 Rising` (10+) → `⚠️ High` (20+) → `🚨 ESCALATED` (50+ upvotes)
+- **💬 Comment Threads** — Users can discuss and add context to complaints
+
+### 🌐 Public Feed
+- **Live Feed** — All complaints visible to the community
+- **Sort Toggle** — Switch between 🔥 Most Upvoted and 🕐 Newest First
+- **Search & Filter** — Full-text search with category filtering
+- **Trending Section** — Highlights the week's most upvoted issue
+
+### 🎨 Premium UI/UX
+- **Dark Mode** — Deep indigo palette (`#030637`, `#3C0753`, `#720455`, `#910A67`)
+- **Light Mode** — Elegant palette (`#F3F4F4`, `#853953`, `#612D53`, `#2C2C2C`)
+- **Theme Toggle** — Persisted in localStorage, instant switch via sidebar
+- **Glassmorphism & Neumorphism** — Frosted glass cards, soft shadows, blur effects
+- **Micro-Animations** — Hover effects, reveal animations, loading transitions
+
+### ⚡ API Test Console
+- Built-in interactive API testing page at `/api-test.html`
+- Test all endpoints: Send OTP, Verify OTP, Submit Complaint, Update Status
+- Live request history log with response codes and latency
+
+### 📊 Analytics Dashboard
+- Visual complaint statistics
+- Resolution speed tracking
+- Category distribution insights
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | HTML5, CSS3 (Custom Design System), Vanilla JavaScript |
+| **Backend** | Node.js, Express.js |
+| **Auth** | bcryptjs (password hashing), jsonwebtoken (JWT), In-memory OTP store |
+| **Storage** | In-memory (`app.locals`) + localStorage — Ready for MongoDB migration |
+| **Design** | CSS Variables, Glassmorphism, Neumorphism, CSS Animations |
 
 ---
 
 ## 📁 Project Structure
 
-```text
-📁 cssHacks
-├── 📄 server.js               # Entry point for the Node.js Express server
-├── 📄 package.json            # Project dependencies and script configurations
-├── 📁 routes/                 # Express API router endpoints (Auth, etc.)
-├── 📁 controllers/            # Core business logic processing
-├── 📁 models/                 # Mongoose database schemas
-├── 📁 middlewares/            # Custom logic (Auth verification)
-├── 📁 css/                    # Global and component-specific stylesheets
-├── 📁 js/                     # Client-side routing, interactions, and data rendering
-├── 📁 assets/                 # Icons, backgrounds, fonts, and images
-└── 📄 index.html              # Main Landing Page / Root file
+```
+📁 cssHacks/
+├── 📄 server.js                  # Express server entry point (port 3000)
+├── 📄 package.json               # Dependencies & scripts
+├── 📄 .gitignore                 # Excludes node_modules, .env, logs
+│
+├── 📁 routes/
+│   ├── authRoutes.js             # POST /api/auth/send-otp, verify-otp
+│   ├── complaintRoutes.js        # GET/POST /api/complaints, PATCH status
+│   ├── analyticsRoutes.js        # Analytics API endpoints
+│   └── userRoutes.js             # User management routes
+│
+├── 📁 controllers/               # Business logic handlers
+├── 📁 models/                    # Mongoose schemas (User, Complaint, OTP)
+├── 📁 middlewares/               # JWT auth middleware
+│
+├── 📁 css/
+│   ├── global.css                # Design system tokens & theme variables
+│   ├── neumorphism.css           # Glassmorphic component library
+│   ├── index.css                 # Homepage styles
+│   ├── category.css              # Category page styles
+│   ├── profile.css               # Profile & complaint management styles
+│   ├── public-feed.css           # Feed, comments, escalation styles
+│   ├── login.css                 # Auth page styles
+│   ├── analytics.css             # Dashboard styles
+│   └── api-test.css              # API console styles
+│
+├── 📁 js/
+│   ├── global.js                 # Theme toggle, UserSession, showToast, nav
+│   ├── data.js                   # COMPLAINT_CATEGORIES & FORM_FIELDS
+│   ├── index.js                  # Homepage interactions
+│   ├── category.js               # Category drill-down & form submission
+│   ├── login.js                  # OTP flow (send → verify → redirect)
+│   ├── profile.js                # Profile rendering & admin complaint mgmt
+│   ├── public-feed.js            # Feed rendering, upvotes, comments, sort
+│   ├── analytics.js              # Dashboard data visualization
+│   └── api-test.js               # API console logic
+│
+├── 📁 assets/                    # Logo, images
+│
+├── 📄 index.html                 # Landing page
+├── 📄 category.html              # Category drill-down page
+├── 📄 login-student.html         # Student login + OTP modal
+├── 📄 login-admin.html           # Admin login + OTP modal
+├── 📄 profile.html               # User profile & complaint management
+├── 📄 public-feed.html           # Community feed with upvotes & comments
+├── 📄 analytics.html             # Analytics dashboard
+└── 📄 api-test.html              # API testing console
 ```
 
 ---
 
-## 🚀 Getting Started (Run Locally)
+## 🚀 Getting Started
 
-Follow these steps to deploy and test the FAXX portal from your local terminal:
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18+ recommended)
 
-### 1. Prerequisites
-Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
-
-### 2. Installation
-Navigate directly into the project directory and install the required dependencies:
+### Installation
 
 ```bash
-cd cssHacks
+# Clone the repository
+git clone https://github.com/Anubrata023/CssHacks.git
+cd CssHacks/cssHacks
+
+# Install dependencies
 npm install
 ```
 
-### 3. Environment Variables
-Create a `.env` file in the root directory (or use the one already provided) to configure your server setup:
+### Environment Setup
+
+Create a `.env` file in the `cssHacks/` directory:
 
 ```env
 PORT=3000
-JWT_SECRET=your_jwt_secret_key_here
+JWT_SECRET=your_secret_key_here
 ```
 
-### 4. Start the Application
-Start the Node.js server. By default, this will expose the app on `http://localhost:3000`.
+### Start the Server
 
 ```bash
 node server.js
 ```
 
-### 5. Access the Portal
-Open up your browser and visit:
-```text
-http://localhost:3000
 ```
-- Navigate to `/login-student.html` to experience the student dashboard.
-- Navigate to `/login-admin.html` to view the administrative environment.
+🚀 FAXX Portal is LIVE!
+Click to open: http://localhost:3000
+```
+
+> **Important:** Keep the terminal visible — OTP codes and grievance notifications print here.
+
+---
+
+## 🔐 Authentication Flow
+
+```
+Student/Admin fills login form
+        │
+        ▼
+POST /api/auth/send-otp
+        │
+        ▼
+┌─────────────────────────────────┐
+│  🔑 OTP printed in terminal    │
+│  ⏱️  30-second window           │
+│  🔒 3 attempts max             │
+└─────────────────────────────────┘
+        │
+        ▼
+POST /api/auth/verify-otp
+        │
+        ▼
+✅ JWT token issued → Session created → Redirect to profile
+```
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/auth/send-otp` | Register & generate OTP (prints to terminal) |
+| `POST` | `/api/auth/verify-otp` | Verify OTP → returns JWT + user profile |
+| `GET` | `/api/complaints` | List all complaints with count |
+| `POST` | `/api/complaints` | Submit a new grievance (triggers terminal notification) |
+| `PATCH` | `/api/complaints/:id/status` | Admin updates status (triggers resolution notification) |
+
+Test all endpoints interactively at **`/api-test.html`**
+
+---
+
+## 🔔 Terminal Notifications
+
+All key actions produce formatted terminal output:
+
+| Event | Terminal Output |
+|-------|----------------|
+| **OTP Generated** | User details + 6-digit OTP code |
+| **Login Success** | User credentials + JWT token preview |
+| **Complaint Filed** | Complaint ID, title, category, urgency |
+| **Status Updated** | Complaint ID, old → new status, admin name |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions, bug reports, and feature requests are welcome to make FAXX even better.
 1. Fork the repository
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ---
@@ -109,7 +240,14 @@ Contributions, bug reports, and feature requests are welcome to make FAXX even b
 
 This project is licensed under the **ISC License**.
 
-> **Built with ❤️ for Students.** Elevating campus infrastructure through transparent feedback.
->
-> 
-> -------------------------------------TEAM ARDITECHS--------------------------------------------
+---
+
+<div align="center">
+
+**Built with ❤️ for Students**
+
+Elevating campus infrastructure through transparent feedback.
+
+**— TEAM ARDITECHS —**
+
+</div>
