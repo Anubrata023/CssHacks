@@ -167,16 +167,13 @@ function setupFormListeners() {
   const form = document.getElementById('complaint-form');
   if (!form) return;
 
-<<<<<<< HEAD
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     try { // FIXED: Added missing try block
       const submitBtn = form.querySelector('.submit-complaint-btn');
-=======
       const fileInput = document.getElementById('complaint-file');
       
->>>>>>> 66c98d28c5eb521ba5931ab271ac02598612bfc8
       const formData = new FormData(form);
 
       const complaint = {

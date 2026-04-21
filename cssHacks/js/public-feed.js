@@ -81,12 +81,16 @@ function loadComplaints() {
     localStorage.setItem('faxx_complaints', JSON.stringify(complaintsData));
   }
   
-  // Ensure structure supports upvotes
+  // Ensure structure supports upvotes and comments
   let altered = false;
   complaintsData = complaintsData.map(c => {
     if (typeof c.upvotes === 'undefined') {
       c.upvotes = 0;
       c.upvotedBy = [];
+      altered = true;
+    }
+    if (typeof c.comments === 'undefined') {
+      c.comments = [];
       altered = true;
     }
     return c;
@@ -185,6 +189,18 @@ function renderFeed() {
             <span class="feed-tag" style="color: ${catData.color}"><span style="margin-right:5px">${catData.icon}</span> ${catData.title}</span>
             <span class="feed-tag" style="opacity: 0.8; color: ${statusColor}">Status: ${c.status}</span>
             ${c.urgency === 'high' ? '<span class="feed-tag" style="background: rgba(231, 76, 60, 0.2); color: #e74c3c;">🔥 Urgent</span>' : ''}
+            <button class="comment-toggle-btn" onclick="toggleComments('${c.id}')"><span class="icon">💬</span> ${c.comments?.length || 0} Comments</button>
+          </div>
+          
+          <!-- Comment Section -->
+          <div class="comments-section" id="comments-${c.id}" style="display: none;">
+            <div class="comments-list" id="comments-list-${c.id}">
+              ${renderCommentsHTML(c.comments)}
+            </div>
+            <div class="comment-input-area">
+              <input type="text" id="comment-input-${c.id}" placeholder="Write a comment..." class="comment-input">
+              <button onclick="submitComment('${c.id}')" class="submit-comment-btn">Post</button>
+            </div>
           </div>
         </div>
       `;
@@ -235,6 +251,18 @@ function renderTrending(userId) {
         <p class="trending-desc">${trending.description}</p>
         <div class="feed-footer">
           <span class="feed-tag" style="color: ${catData.color}"><span>${catData.icon}</span> ${catData.title}</span>
+          <button class="comment-toggle-btn" onclick="toggleComments('trend-${trending.id}')"><span class="icon">💬</span> ${trending.comments?.length || 0} Comments</button>
+        </div>
+        
+        <!-- Comment Section -->
+        <div class="comments-section" id="comments-trend-${trending.id}" style="display: none;">
+          <div class="comments-list" id="comments-list-trend-${trending.id}">
+            ${renderCommentsHTML(trending.comments)}
+          </div>
+          <div class="comment-input-area">
+            <input type="text" id="comment-input-trend-${trending.id}" placeholder="Write a comment..." class="comment-input">
+            <button onclick="submitComment('${trending.id}', 'trend-${trending.id}')" class="submit-comment-btn">Post</button>
+          </div>
         </div>
       </div>
     </div>
@@ -274,4 +302,88 @@ window.toggleUpvote = function(complaintId, btnElement, isTrendingClick = false)
   
   // Re-render feed without losing focus
   renderFeed();
+}
+
+// -------- COMMENT SECTION --------
+
+window.toggleComments = function(sectionId) {
+  const section = document.getElementById(`comments-${sectionId}`);
+  if (section) {
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+  }
+};
+
+window.renderCommentsHTML = function(comments) {
+  if (!comments || comments.length === 0) {
+    return `<div class="no-comments">No comments yet. Be the first to comment!</div>`;
+  }
+  return comments.map(c => `
+    <div class="comment-item">
+      <div class="comment-avatar">👤</div>
+      <div class="comment-content">
+        <div class="comment-author">${c.user || 'Anonymous'}</div>
+        <div class="comment-text">${c.text}</div>
+      </div>
+    </div>
+  `).join('');
+};
+
+window.submitComment = function(complaintId, prefixOverride) {
+  if (!UserSession.isLoggedIn()) {
+    showToast('Please login to comment', 'error');
+    setTimeout(() => { window.location.href = 'login-student.html'; }, 1000);
+    return;
+  }
+
+  const prefix = prefixOverride || complaintId;
+  const inputEl = document.getElementById(`comment-input-${prefix}`);
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  const user = UserSession.getUser();
+  const complaint = complaintsData.find(c => c.id === complaintId);
+  if (!complaint) return;
+
+  if (!complaint.comments) complaint.comments = [];
+  
+  complaint.comments.push({
+    user: user.name || user.email || 'Student',
+    text: escapeHTML(text),
+    date: new Date().toISOString()
+  });
+
+  saveComplaints();
+  
+  // Update both the target UI element and any standard ones if needed
+  const listEl = document.getElementById(`comments-list-${prefix}`);
+  if (listEl) {
+    listEl.innerHTML = window.renderCommentsHTML(complaint.comments);
+    
+    const toggleBtn = document.querySelector(`#comments-${prefix}`)?.previousElementSibling?.querySelector('.comment-toggle-btn');
+    if(toggleBtn) {
+      toggleBtn.innerHTML = `<span class="icon">💬</span> ${complaint.comments.length} Comments`;
+    }
+  }
+  
+  inputEl.value = '';
+  // Force a full re-render to keep everything in sync (optional, might close other open comment sections)
+  // Instead of full re-render, we just re-render this local slice.
+  renderFeed(); // Wait, renderFeed will close the comments section that the user just opened.
+  // We should persist the open state. Instead of complex state management, let's just re-render and re-open.
+  setTimeout(() => {
+     const section = document.getElementById(`comments-${prefix}`);
+     if(section) section.style.display = 'block';
+  },10);
+};
+
+function escapeHTML(str) {
+  return str.replace(/[&<>'"]/g, 
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag)
+  );
 }
