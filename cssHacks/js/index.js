@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initStatCounters();
+  initCategoryCounts();
 });
 
 /* ---------- Parallax on Hero ---------- */
@@ -59,6 +60,50 @@ function initStatCounters() {
   }, { threshold: 0.5 });
 
   counters.forEach(el => observer.observe(el));
+}
+
+/* ---------- Category Counts ---------- */
+function initCategoryCounts() {
+  const complaints = JSON.parse(localStorage.getItem('faxx_complaints')) || [];
+  
+  // Categorize complaints
+  const counts = {
+    'mess-food': 0,
+    'hostel': 0,
+    'academics': 0,
+    'infrastructure': 0,
+    'administration': 0,
+    'others': 0
+  };
+  
+  complaints.forEach(c => {
+    if (counts[c.category] !== undefined) {
+      counts[c.category]++;
+    } else {
+      counts['others']++;
+    }
+  });
+
+  // Map JS keys to HTML IDs
+  const idMap = {
+    'mess-food': 'card-mess',
+    'hostel': 'card-hostel',
+    'academics': 'card-academics',
+    'infrastructure': 'card-infra',
+    'administration': 'card-admin',
+    'others': 'card-others'
+  };
+
+  for (const cat in counts) {
+    const cardId = idMap[cat];
+    const cardEl = document.getElementById(cardId);
+    if (cardEl) {
+      const countEl = cardEl.querySelector('.complaint-card-count span');
+      if (countEl) {
+        countEl.textContent = counts[cat] === 1 ? '1 complaint filed' : `${counts[cat]} complaints filed`;
+      }
+    }
+  }
 }
 
 function animateCounter(element) {
